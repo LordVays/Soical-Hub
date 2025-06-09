@@ -6,7 +6,7 @@
 ## Запуск
 Установите необходимые зависимоти (модули)
 ```Bash
-npm install express bcryptjs body-parser mongodb cookie-parser cors dotenv ejs nodemon mongoose dotenv jsonwebtoken helmet multer express-session path morgan helmet
+npm install express bcryptjs mongodb cors dotenv ejs nodemon mongoose dotenv jsonwebtoken helmet multer express-session path morgan helmet
 ```
 Запустите в cmd
 ```Bash
