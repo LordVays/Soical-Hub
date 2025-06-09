@@ -4,7 +4,7 @@
 Является копией VK с функциями добавления, удаления, редактирования и создания пользователей и постов
 
 ## Запуск
-Установите необходимые зависимоти (модули)
+Установите необходимые зависимоcти (модули)
 ```Bash
 npm install express bcryptjs mongodb cors dotenv ejs nodemon mongoose dotenv helmet multer express-session path morgan helmet
 ```
