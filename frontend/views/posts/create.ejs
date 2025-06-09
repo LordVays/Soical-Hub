@@ -1,0 +1,25 @@
+<%- include('../partials/header', { title: 'Создать пост' }) %>
+
+<div class="container">
+    <h2>Создать новый пост</h2>
+
+    <form id="createPostForm" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="desc">Описание:</label>
+            <textarea id="desc" name="desc" class="form-control" rows="4" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="img">Изображение (необязательно):</label>
+            <input type="file" id="img" name="img" class="form-control-file" accept="image/*">
+        </div>
+        
+        <% if (currentUser) { %>
+            <input type="hidden" name="userId" value="<%= currentUser._id %>">
+        <% } %>
+
+        <button type="submit" class="btn btn-primary">Опубликовать</button>
+    </form>
+</div>
+
+<%- include('../partials/footer') %>

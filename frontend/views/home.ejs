@@ -1,0 +1,34 @@
+<%- include('partials/header', { title: 'Лента новостей' }) %>
+
+<div class="container">
+    <h1>Лента новостей</h1>
+
+    <div id="createPostContainer" class="mb-2">
+      <h3>Создать новый пост</h3>
+
+      <form id="createPostForm" enctype="multipart/form-data">
+          <div class="form-group">
+              <label for="desc">Что у вас нового?</label>
+              <textarea id="desc" name="desc" rows="3" required></textarea>
+          </div>
+
+          <div class="form-group">
+              <label for="img">Изображение (необязательно)</label>
+              <input type="file" id="img" name="img" accept="image/*">
+          </div>
+
+          <button type="submit" class="btn btn-primary">Опубликовать</button>
+      </form>
+    </div>
+
+
+    <% if (posts && posts.length > 0) { %>
+        <% posts.forEach(post => { %>
+            <%- include('posts/_post', { post: post, currentUser: currentUser }) %>
+        <% }) %>
+    <% } else { %>
+        <p class="text-center">В вашей ленте пока нет постов. Подпишитесь на кого-нибудь или создайте свой первый пост!</p>
+    <% } %>
+</div>
+
+<%- include('partials/footer') %>

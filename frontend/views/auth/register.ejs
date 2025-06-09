@@ -1,0 +1,33 @@
+<%- include('../partials/header', { title: 'Регистрация' }) %>
+
+<div class="container">
+    <h2>Регистрация в SocialHub</h2>
+
+    <form id="registerForm">
+        <div class="form-group">
+            <label for="username">Имя пользователя</label>
+            <input type="text" id="username" name="username" required minlength="3" maxlength="20">
+        </div>
+
+        <div class="form-group">
+            <label for="age">Возраст</label>
+            <input type="number" id="age" name="age" required min="1">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required maxlength="50">
+        </div>
+
+        <div class="form-group">
+            <label for="password">Пароль</label>
+            <input type="password" id="password" name="password" required minlength="6">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+        
+        <p class="mt-2">Уже есть аккаунт? <a href="/login">Войти</a></p>
+    </form>
+</div>
+
+<%- include('../partials/footer') %>

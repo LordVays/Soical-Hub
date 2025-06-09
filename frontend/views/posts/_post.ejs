@@ -1,0 +1,84 @@
+<div class="post-card" id="post-<%= post._id %>">
+    <div class="post-header">
+        <img src="<%= post.author && post.author.profileAvatar ? post.author.profileAvatar : '/images/default-avatar.jpg' %>" alt="Avatar" class="post-avatar">
+
+        <div>
+            <span class="post-author-name">
+                <a href="/profile/<%= post.userId %>">
+                    <%= post.author ? post.author.username : 'Неизвестный пользователь' %>
+                </a>
+            </span>
+        </div>
+        <span class="post-timestamp"><%= new Date(post.createdAt).toLocaleString('ru-RU') %></span>
+    </div>
+
+    <div class="post-content">
+        <p><%= post.desc %></p>
+
+        <% if (post.img) { %>
+            <img src="<%= post.img %>" alt="Post image" class="post-image">
+        <% } %>
+    </div>
+
+    <div class="post-actions">
+        <button class="btn like-btn <%= post.likes.includes(currentUser._id.toString()) ? 'liked' : '' %>" data-post-id="<%= post._id %>">
+            <% if (post.likes.includes(currentUser._id.toString())) { %>
+                ❤️ <span class="like-count"><%= post.likes.length %></span>
+            <% } else { %>
+                🤍 <span class="like-count"><%= post.likes.length %></span>
+            <% } %>
+        </button>
+
+        <button class="btn comment-toggle-btn" data-post-id="<%= post._id %>">💬 Комментарии (<%= post.comments ? post.comments.length : 0 %>)</button>
+
+        <% if (currentUser && currentUser._id.toString() === post.userId.toString()) { %>
+            <!-- <button class="btn edit-post-btn" data-post-id="<%= post._id %>">✏️ Редактировать</button> -->
+            <button class="btn btn-danger delete-post-btn" data-post-id="<%= post._id %>">🗑️ Удалить</button>
+        <% } %>
+    </div>
+
+    <div class="comments-section" id="comments-<%= post._id %>" style="display: none;"> <!-- Initially hidden -->
+        <h4>Комментарии</h4>
+
+        <% if (post.comments && post.comments.length > 0) { %>
+            <% post.comments.forEach(comment => { %>
+                <div class="comment" id="comment-<%= comment._id %>">
+                    <strong class="comment-author">
+                        <%# Ideally, fetch comment author's username. For now, use ID or a placeholder %>
+                        <%= comment.userId.substring(0, 8) %>...:
+                    </strong>
+                    <span class="comment-text"><%= comment.text %></span>
+                    <small class="text-muted d-block"><%= new Date(comment.createdAt).toLocaleString('ru-RU') %></small>
+                    <% if (currentUser && (currentUser._id.toString() === comment.userId.toString() || currentUser._id.toString() === post.userId.toString())) { %>
+                        <!-- <button class="btn btn-sm btn-danger delete-comment-btn" data-post-id="<%= post._id %>" data-comment-id="<%= comment._id %>">Удалить</button> -->
+                    <% } %>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p>Комментариев пока нет.</p>
+        <% } %>
+
+        <form class="comment-form mt-2" data-post-id="<%= post._id %>">
+            <div class="form-group">
+                <textarea name="text" placeholder="Написать комментарий..." class="form-control" required></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-secondary btn-sm submit-comment-btn">Отправить</button>
+        </form>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const commentToggleBtns = document.querySelectorAll('.comment-toggle-btn');
+    commentToggleBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const postId = btn.dataset.postId;
+            const commentsSection = document.getElementById(`comments-${postId}`);
+            if (commentsSection) {
+                commentsSection.style.display = commentsSection.style.display === 'none' ? 'block' : 'none';
+            }
+        });
+    });
+});
+</script>

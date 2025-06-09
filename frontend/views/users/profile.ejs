@@ -1,0 +1,51 @@
+<%- include('../partials/header', { title: profileUser.username + ' | Профиль' }) %>
+
+<div class="container">
+    <div class="profile-header">
+        <% if (profileUser.profileCover) { %>
+            <img src="<%= profileUser.profileCover %>" alt="Cover Photo" class="profile-cover-image">
+        <% } else { %>
+            <div style="height: 200px; background-color: var(--tertiary-bg);" class="profile-cover-image"></div>
+        <% } %>
+        <img src="<%= profileUser.profileAvatar %>" alt="<%= profileUser.username %>'s Avatar" class="profile-avatar">
+        
+        <div class="profile-info">
+            <h2 class="profile-username"><%= profileUser.username %></h2>
+            <% if (profileUser.desc) { %>
+                <p class="profile-desc"><%= profileUser.desc %></p>
+            <% } %>
+            <p>Возраст: <%= profileUser.age %></p>
+            <% if (profileUser.city) { %><p>Город: <%= profileUser.city %></p><% } %>
+            <% if (profileUser.from) { %><p>Откуда: <%= profileUser.from %></p><% } %>
+             <div class="profile-stats">
+                <span>Подписчики: <span id="followerCount"><%= profileUser.followers.length %></span></span>
+                <span>Подписки: <%= profileUser.followings.length %></span>
+            </div>
+        </div>
+
+        <div class="profile-actions">
+            <% if (currentUser && currentUser._id.toString() === profileUser._id.toString()) { %>
+                <button class="btn btn-secondary">Редактировать профиль</button> <!-- Link to edit page -->
+            <% } else if (currentUser) { %>
+                <% if (currentUser.followings && currentUser.followings.includes(profileUser._id.toString())) { %>
+                    <button class="btn btn-secondary follow-btn" data-profile-user-id="<%= profileUser._id %>" data-action="unfollow">Отписаться</button>
+                <% } else { %>
+                    <button class="btn btn-primary follow-btn" data-profile-user-id="<%= profileUser._id %>" data-action="follow">Подписаться</button>
+                <% } %>
+            <% } %>
+        </div>
+    </div>
+
+    <h3 class="mt-2">Посты пользователя <%= profileUser.username %></h3>
+    
+    <% if (posts && posts.length > 0) { %>
+        <% posts.forEach(post => { %>
+            <%- include('../posts/_post', { post: post, currentUser: currentUser }) %>
+        <% }) %>
+    <% } else { %>
+        <p><%= profileUser.username %> еще не опубликовал(а) ни одного поста.</p>
+    <% } %>
+
+</div>
+
+<%- include('../partials/footer') %>

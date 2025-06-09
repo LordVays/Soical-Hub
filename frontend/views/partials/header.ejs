@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> | SocialHub</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-current-user-id="<%= currentUser ? currentUser._id : '' %>">
+    <%- include('navbar') %>
+    <main>
+        <% if (locals.error) { %>
+            <div class="container">
+                <div class="alert alert-error"><%= error %></div>
+            </div>
+        <% } %>
+        <% if (locals.success) { %>
+            <div class="container">
+                 <div class="alert alert-success"><%= success %></div>
+            </div>
+        <% } %>
