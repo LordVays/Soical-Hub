@@ -1,4 +1,9 @@
 # Soical-Hub
 
-### Проект "Социальная сеть", реализованная HTML/EJS, CSS, JavaScript, NodeJS Express + MongoDB
+### Проект "Социальная сеть", реализованная на HTML/EJS, CSS, JavaScript, NodeJS Express + MongoDB
 Является копией VK с функциями добавления, удаления, редактирования и создания пользователей и постов
+
+# Запуск
+```Bash
+
+```
